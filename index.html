@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Podas y Jardines Setti – Palafrugell</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --g1:   #1e3a0a;   /* verde muy oscuro */
+      --g2:   #2d5412;   /* verde oscuro logo */
+      --g3:   #4a7a1a;   /* verde medio logo */
+      --g4:   #6fa820;   /* verde brillante logo */
+      --br:   #5c3010;   /* marrón logo */
+      --cream:#f2e8c0;   /* crema logo */
+      --black:#111111;
+      --grey: #6b6b6b;
+      --off:  #faf8f3;
+      --white:#ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--black); background: var(--white); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      padding: 0 5%; height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .35s, box-shadow .35s;
+    }
+    nav.scrolled {
+      background: rgba(17,17,17,0.97); backdrop-filter: blur(8px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { height: 42px; }
+    .nav-logo span {
+      font-family: 'Playfair Display', serif; font-size: 1rem;
+      color: var(--white); letter-spacing: 0.02em; line-height: 1.2;
+    }
+    nav ul { list-style: none; display: flex; gap: 32px; align-items: center; }
+    nav ul a {
+      color: rgba(255,255,255,0.7); text-decoration: none;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; transition: color .2s;
+    }
+    nav ul a:hover { color: var(--white); }
+    .nav-cta {
+      border: 1px solid var(--g4) !important; color: var(--g4) !important;
+      padding: 8px 20px; border-radius: 2px; transition: background .2s !important;
+    }
+    .nav-cta:hover { background: var(--g4) !important; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden; text-align: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1800&q=85');
+      background-size: cover; background-position: center 30%;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(15,28,6,0.75) 0%,
+        rgba(15,28,6,0.60) 50%,
+        rgba(15,28,6,0.80) 100%
+      );
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 100px 5% 80px; max-width: 860px; margin: 0 auto;
+    }
+    .hero-logo {
+      width: clamp(180px, 28vw, 320px);
+      margin-bottom: 36px;
+      filter: drop-shadow(0 8px 40px rgba(0,0,0,0.5));
+      animation: floatLogo 5s ease-in-out infinite;
+    }
+    @keyframes floatLogo {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--g4);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      color: var(--white); line-height: 1.05; font-weight: 700;
+      margin-bottom: 22px;
+    }
+    .hero h1 em { color: var(--cream); font-style: italic; }
+    .hero p {
+      color: rgba(255,255,255,0.65); font-size: 1rem; font-weight: 300;
+      line-height: 1.8; max-width: 520px; margin-bottom: 44px;
+    }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--g3); color: var(--white);
+      padding: 15px 38px; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; border-radius: 2px;
+      transition: background .2s;
+    }
+    .btn-primary:hover { background: var(--g4); }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.35); color: var(--white);
+      padding: 15px 38px; font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; border-radius: 2px;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
+
+    /* ── STATS ── */
+    .stats {
+      background: var(--g1); padding: 36px 5%;
+      display: flex; justify-content: center;
+    }
+    .stats-inner {
+      max-width: 900px; width: 100%;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stat {
+      text-align: center; padding: 0 24px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat:last-child { border: none; }
+    .stat-n {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem; color: var(--cream);
+      display: block; line-height: 1; margin-bottom: 6px;
+    }
+    .stat-l { font-size: 0.68rem; color: rgba(255,255,255,0.38); letter-spacing: 0.14em; text-transform: uppercase; }
+
+    /* ── SECCIONES ── */
+    .section { padding: 96px 5%; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .tag {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--g4);
+      display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    }
+    .tag::before { content: ''; width: 28px; height: 1px; background: var(--g4); }
+    .h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--black); line-height: 1.1; font-weight: 700;
+    }
+    .lead { color: var(--grey); font-size: 1rem; line-height: 1.8; font-weight: 300; }
+
+    /* ── SERVICIOS ── */
+    .svc-header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: end; margin-bottom: 56px;
+    }
+    .svc-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: #e2e2e2;
+    }
+    .svc {
+      background: var(--white); padding: 40px 32px;
+      transition: background .25s;
+    }
+    .svc:hover { background: var(--off); }
+    .svc-n {
+      font-family: 'Playfair Display', serif; font-size: 1.1rem;
+      color: #d0c8a8; display: block; margin-bottom: 24px;
+    }
+    .svc h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.25rem;
+      color: var(--black); margin-bottom: 12px; font-weight: 600;
+    }
+    .svc p { color: var(--grey); font-size: 0.87rem; line-height: 1.75; font-weight: 300; }
+    .svc-a {
+      display: inline-block; margin-top: 22px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--g3); text-decoration: none;
+      border-bottom: 1px solid transparent; transition: border-color .2s;
+    }
+    .svc-a:hover { border-color: var(--g3); }
+
+    /* ── GALERÍA BOSQUES ── */
+    .bosques { background: var(--g1); padding: 80px 5%; }
+    .bosques-top {
+      max-width: 1200px; margin: 0 auto 48px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .bosques .tag { color: var(--cream); }
+    .bosques .tag::before { background: var(--cream); }
+    .bosques .h2 { color: var(--white); }
+    .bosques .lead { color: rgba(255,255,255,0.45); max-width: 380px; }
+    .pines-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 280px 220px;
+      gap: 8px;
+    }
+    .pine { position: relative; overflow: hidden; background: #1a2e10; }
+    .pine:nth-child(1) { grid-column: span 4; }
+    .pine:nth-child(2) { grid-column: span 8; }
+    .pine:nth-child(3) { grid-column: span 3; }
+    .pine:nth-child(4) { grid-column: span 3; }
+    .pine:nth-child(5) { grid-column: span 3; }
+    .pine:nth-child(6) { grid-column: span 3; }
+    .pine img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .7s ease;
+    }
+    .pine:hover img { transform: scale(1.06); }
+    .pine-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(10,20,5,0.75), transparent);
+      padding: 20px 16px 14px;
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+      transform: translateY(4px); opacity: 0;
+      transition: opacity .3s, transform .3s;
+    }
+    .pine:hover .pine-label { opacity: 1; transform: translateY(0); }
+
+    /* ── TRABAJOS ── */
+    .trabajos-grid {
+      display: grid; grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 300px 260px;
+      gap: 8px; margin-top: 52px;
+    }
+    .work { position: relative; overflow: hidden; background: #ccc; }
+    .work:nth-child(1) { grid-column: span 7; }
+    .work:nth-child(2) { grid-column: span 5; }
+    .work:nth-child(3) { grid-column: span 4; }
+    .work:nth-child(4) { grid-column: span 4; }
+    .work:nth-child(5) { grid-column: span 4; }
+    .work img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .6s ease;
+    }
+    .work:hover img { transform: scale(1.04); }
+    .work-over {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,20,5,0.7) 0%, transparent 55%);
+      opacity: 0; transition: opacity .3s;
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .work:hover .work-over { opacity: 1; }
+    .work-label {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: rgba(255,255,255,0.85);
+    }
+
+    /* ── PROCESO ── */
+    .proceso { background: var(--off); }
+    .proceso-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; border: 1px solid #e0dcd0; margin-top: 52px;
+    }
+    .paso {
+      padding: 40px 28px; border-right: 1px solid #e0dcd0;
+    }
+    .paso:last-child { border-right: none; }
+    .paso-n {
+      font-family: 'Playfair Display', serif; font-size: 3.2rem;
+      color: #ddd8c8; line-height: 1; display: block; margin-bottom: 18px;
+    }
+    .paso h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 10px; color: var(--black); }
+    .paso p { font-size: 0.85rem; color: var(--grey); line-height: 1.72; font-weight: 300; }
+
+    /* ── TESTIMONIOS ── */
+    .testi { background: var(--g2); }
+    .testi .tag { color: var(--cream); opacity: .7; }
+    .testi .tag::before { background: var(--cream); opacity: .4; }
+    .testi .h2 { color: var(--white); }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: rgba(255,255,255,0.07); margin-top: 52px;
+    }
+    .tcard { background: var(--g2); padding: 40px 32px; }
+    .t-stars { letter-spacing: 4px; color: var(--cream); font-size: 0.75rem; margin-bottom: 22px; opacity: .8; }
+    .tcard blockquote {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1rem; color: rgba(255,255,255,0.78);
+      line-height: 1.75; margin-bottom: 24px;
+    }
+    .t-author { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 18px; }
+    .t-author strong { color: var(--white); font-size: 0.88rem; font-weight: 500; display: block; margin-bottom: 3px; }
+    .t-author span { font-size: 0.75rem; color: rgba(255,255,255,0.32); letter-spacing: 0.06em; }
+
+    /* ── ZONA ── */
+    .zona-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;
+    }
+    .zona-list {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid #e0dcd0; margin-top: 32px;
+    }
+    .z-item {
+      padding: 15px 18px; border-bottom: 1px solid #e0dcd0;
+      border-right: 1px solid #e0dcd0;
+      font-size: 0.86rem; color: var(--grey); font-weight: 400;
+    }
+    .z-item:nth-child(even) { border-right: none; }
+    .z-item b { color: var(--black); font-weight: 600; }
+    .zona-map {
+      width: 100%; aspect-ratio: 4/3; overflow: hidden; border-radius: 2px;
+    }
+    .zona-map iframe { width: 100%; height: 100%; border: none; filter: grayscale(20%) sepia(10%); }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      background: linear-gradient(135deg, var(--g1) 0%, var(--g2) 100%);
+      padding: 100px 5%; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-final::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=1200&q=60');
+      background-size: cover; background-position: center;
+      opacity: 0.07;
+    }
+    .cta-logo {
+      position: relative; z-index: 1;
+      width: clamp(100px, 14vw, 160px); margin-bottom: 32px;
+    }
+    .cta-final h2 {
+      position: relative; z-index: 1;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--white); margin-bottom: 16px; font-weight: 700;
+    }
+    .cta-final > p {
+      position: relative; z-index: 1;
+      color: rgba(255,255,255,0.55); font-size: 1rem;
+      margin-bottom: 44px; font-weight: 300;
+    }
+    .cta-phone {
+      position: relative; z-index: 1;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      color: var(--cream); text-decoration: none; display: block;
+      margin-bottom: 44px; letter-spacing: 0.02em; transition: opacity .2s;
+    }
+    .cta-phone:hover { opacity: .75; }
+    .cta-btns { position: relative; z-index: 1; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .cta-wa {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white); padding: 13px 28px; border-radius: 2px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background .2s;
+    }
+    .cta-wa:hover { background: rgba(255,255,255,0.18); }
+    .cta-mail {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--cream); color: var(--g1);
+      padding: 13px 28px; border-radius: 2px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      transition: opacity .2s;
+    }
+    .cta-mail:hover { opacity: .85; }
+
+    /* ── CONTACTO ── */
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px;
+    }
+    .c-info .h2 { margin-bottom: 40px; }
+    .c-block { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid #eeece8; }
+    .c-block:last-child { border: none; }
+    .c-lbl {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--g4); margin-bottom: 5px;
+    }
+    .c-val { font-size: 0.95rem; color: var(--black); line-height: 1.6; }
+    .c-val a { color: var(--black); text-decoration: none; transition: color .2s; }
+    .c-val a:hover { color: var(--g3); }
+
+    .form-wrap { background: var(--off); padding: 44px; border-top: 3px solid var(--g3); }
+    .form-wrap h3 {
+      font-family: 'Playfair Display', serif; font-size: 1.35rem;
+      margin-bottom: 30px; font-weight: 700;
+    }
+    .fg { margin-bottom: 22px; }
+    .fg label {
+      display: block; font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: #999;
+      margin-bottom: 7px;
+    }
+    .fg input, .fg select, .fg textarea {
+      width: 100%; padding: 11px 0; border: none;
+      border-bottom: 1.5px solid #d8d4cc; background: transparent;
+      font-size: 0.9rem; font-family: inherit; color: var(--black);
+      outline: none; transition: border-color .2s;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--g3); }
+    .fg textarea { resize: vertical; min-height: 90px; }
+    .fr2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .form-submit {
+      width: 100%; padding: 15px; margin-top: 6px;
+      background: var(--g2); color: var(--white);
+      border: none; font-family: inherit;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; cursor: pointer; border-radius: 2px;
+      transition: background .2s;
+    }
+    .form-submit:hover { background: var(--g3); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--g1); padding: 56px 5% 28px; }
+    .f-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 56px;
+      padding-bottom: 44px; border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .f-brand img { height: 52px; margin-bottom: 18px; }
+    .f-brand p { font-size: 0.84rem; color: rgba(255,255,255,0.3); line-height: 1.75; max-width: 270px; font-weight: 300; }
+    .f-col h5 {
+      font-size: 0.67rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      margin-bottom: 18px;
+    }
+    .f-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .f-col ul a { color: rgba(255,255,255,0.4); font-size: 0.84rem; text-decoration: none; font-weight: 300; transition: color .2s; }
+    .f-col ul a:hover { color: var(--cream); }
+    .f-bottom {
+      max-width: 1200px; margin: 28px auto 0;
+      display: flex; justify-content: space-between;
+      font-size: 0.76rem; color: rgba(255,255,255,0.18);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav ul { display: none; }
+      .svc-header { grid-template-columns: 1fr; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .pines-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .pine { grid-column: span 1 !important; height: 200px; }
+      .trabajos-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .work { grid-column: span 1 !important; height: 200px; }
+      .proceso-grid { grid-template-columns: 1fr 1fr; }
+      .paso { border-bottom: 1px solid #e0dcd0; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .zona-inner { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .f-inner { grid-template-columns: 1fr; gap: 30px; }
+      .f-bottom { flex-direction: column; gap: 8px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat { padding: 16px 0; }
+      .stat:nth-child(2n) { border-right: none; }
+      .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .bosques-top { flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+    @media (max-width: 580px) {
+      .hero h1 { font-size: 2.4rem; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .pines-grid { grid-template-columns: 1fr; }
+      .pine { height: 220px !important; }
+      .proceso-grid { grid-template-columns: 1fr; }
+      .fr2 { grid-template-columns: 1fr; }
+      .zona-list { grid-template-columns: 1fr; }
+      .z-item { border-right: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#inicio">
+    <img src="logo_setti.png" alt="Setti" />
+    <span>Podas y Jardines Setti</span>
+  </a>
+  <ul>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#trabajos">Trabajos</a></li>
+    <li><a href="#zona">Zona</a></li>
+    <li><a href="#contacto" class="nav-cta">Presupuesto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <img class="hero-logo" src="logo_setti_sin_texto.png" alt="Podas y Jardines Setti" />
+    <p class="hero-eyebrow">Palafrugell · Baix Empordà · Costa Brava</p>
+    <h1>Poda y jardinería<br/>de <em>confianza.</em></h1>
+    <p>Especialistas en poda de árboles, tala y mantenimiento de jardines en la Costa Brava. Más de diez años trabajando en el territorio.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">Presupuesto gratuito</a>
+      <a href="tel:+34600000000" class="btn-outline">+34 600 000 000</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat"><span class="stat-n">500+</span><span class="stat-l">Clientes atendidos</span></div>
+    <div class="stat"><span class="stat-n">10</span><span class="stat-l">Años de experiencia</span></div>
+    <div class="stat"><span class="stat-n">24 h</span><span class="stat-l">Servicio de urgencias</span></div>
+    <div class="stat"><span class="stat-n">4.9</span><span class="stat-l">Valoración Google</span></div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section class="section" id="servicios">
+  <div class="section-inner">
+    <div class="svc-header">
+      <div>
+        <div class="tag">Servicios</div>
+        <h2 class="h2">Soluciones profesionales<br/>de arboricultura</h2>
+      </div>
+      <p class="lead">Trabajamos con particulares, comunidades y empresas en toda la comarca. Cada trabajo es diferente y merece un presupuesto a medida.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc">
+        <span class="svc-n">01</span>
+        <h3>Poda de Árboles</h3>
+        <p>Poda de formación, mantenimiento y saneamiento de toda clase de especies. Trabajos en altura con equipo certificado y plataformas elevadoras.</p>
+        <a href="#contacto" class="svc-a">Solicitar</a>
+      </div>
+      <div class="svc">
+        <span class="svc-n">02</span>
+        <h3>Tala Profesional</h3>
+        <p>Tala controlada en zonas de difícil acceso, próximas a edificaciones o tendidos eléctricos. Triturado y retirada completa de restos incluida.</p>
+        <a href="#contacto" class="svc-a">Solicitar</a>
+      </div>
+      <div class="svc">
+        <span class="svc-n">03</span>
+        <h3>Mantenimiento de Jardines</h3>
+        <p>Contratos anuales o puntuales: siega, setos, plantaciones, sistemas de riego y control fitosanitario. Un jardín cuidado todo el año.</p>
+        <a href="#contacto" class="svc-a">Solicitar</a>
+      </div>
+      <div class="svc">
+        <span class="svc-n">04</span>
+        <h3>Desbrozado y Limpieza</h3>
+        <p>Limpieza de terrenos, solares y fincas rurales. Gestión responsable de residuos y cumplimiento de normativa antiincendios.</p>
+        <a href="#contacto" class="svc-a">Solicitar</a>
+      </div>
+      <div class="svc">
+        <span class="svc-n">05</span>
+        <h3>Diseño de Jardines</h3>
+        <p>Creación y reforma de jardines: selección de especies mediterráneas, pavimentación, riego automático e iluminación exterior.</p>
+        <a href="#contacto" class="svc-a">Solicitar</a>
+      </div>
+      <div class="svc">
+        <span class="svc-n">06</span>
+        <h3>Urgencias</h3>
+        <p>Respuesta inmediata ante árboles caídos o situaciones de riesgo. Disponibles fuera de horario para lo que no puede esperar.</p>
+        <a href="#contacto" class="svc-a">Solicitar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA BOSQUES / PINOS -->
+<section class="bosques">
+  <div class="bosques-top">
+    <div>
+      <div class="tag">Nuestro entorno</div>
+      <h2 class="h2" style="color:var(--white)">Pinos piñoneros<br/>de la Costa Brava</h2>
+    </div>
+    <p class="lead">El pino piñonero es el árbol protagonista del paisaje mediterráneo de Palafrugell. Conocemos su manejo como nadie.</p>
+  </div>
+  <div class="pines-grid">
+    <div class="pine">
+      <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=700&q=80" alt="Bosque de pinos mediterráneo" />
+      <div class="pine-label">Bosque mediterráneo</div>
+    </div>
+    <div class="pine">
+      <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1100&q=80" alt="Pinos piñoneros Costa Brava" />
+      <div class="pine-label">Pinos piñoneros</div>
+    </div>
+    <div class="pine">
+      <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=600&q=80" alt="Pino en el bosque" />
+      <div class="pine-label">Pino costero</div>
+    </div>
+    <div class="pine">
+      <img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=600&q=80" alt="Luz entre pinos" />
+      <div class="pine-label">Luz entre pinos</div>
+    </div>
+    <div class="pine">
+      <img src="https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=600&q=80" alt="Árbol piñonero" />
+      <div class="pine-label">Arbolado piñonero</div>
+    </div>
+    <div class="pine">
+      <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=600&q=80" alt="Bosque de pinos" />
+      <div class="pine-label">Masa forestal</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRABAJOS REALIZADOS -->
+<section class="section" id="trabajos">
+  <div class="section-inner">
+    <div class="tag">Trabajos realizados</div>
+    <h2 class="h2">Ejemplos reales<br/>de nuestro trabajo</h2>
+    <div class="trabajos-grid">
+      <div class="work">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt="Poda de pinos jardín" />
+        <div class="work-over"><span class="work-label">Poda de pinos — Calella de Palafrugell</span></div>
+      </div>
+      <div class="work">
+        <img src="https://images.unsplash.com/photo-1592417817098-8fd3d9eb14a5?w=700&q=80" alt="Mantenimiento jardín" />
+        <div class="work-over"><span class="work-label">Mantenimiento jardín — Begur</span></div>
+      </div>
+      <div class="work">
+        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80" alt="Diseño de jardín mediterráneo" />
+        <div class="work-over"><span class="work-label">Jardín mediterráneo — Palafrugell</span></div>
+      </div>
+      <div class="work">
+        <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&q=80" alt="Desbrozado finca" />
+        <div class="work-over"><span class="work-label">Desbrozado finca — Palamós</span></div>
+      </div>
+      <div class="work">
+        <img src="https://images.unsplash.com/photo-1503149779833-1de50ebe5f5a?w=600&q=80" alt="Jardín diseñado" />
+        <div class="work-over"><span class="work-label">Jardín privado — Llafranc</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="section proceso">
+  <div class="section-inner">
+    <div class="tag">Cómo trabajamos</div>
+    <h2 class="h2">Un proceso claro,<br/>sin sorpresas</h2>
+    <div class="proceso-grid">
+      <div class="paso">
+        <span class="paso-n">01</span>
+        <h4>Visita y valoración</h4>
+        <p>Visitamos el lugar sin coste alguno y evaluamos el trabajo antes de hacer ninguna propuesta.</p>
+      </div>
+      <div class="paso">
+        <span class="paso-n">02</span>
+        <h4>Presupuesto detallado</h4>
+        <p>Precio cerrado el mismo día, desglosado y sin letra pequeña. Sin sorpresas al finalizar.</p>
+      </div>
+      <div class="paso">
+        <span class="paso-n">03</span>
+        <h4>Ejecución del trabajo</h4>
+        <p>El equipo llega en el horario pactado, trabaja con orden y respeta el espacio durante toda la intervención.</p>
+      </div>
+      <div class="paso">
+        <span class="paso-n">04</span>
+        <h4>Limpieza y entrega</h4>
+        <p>Retiramos todos los restos, dejamos el espacio limpio y explicamos los cuidados posteriores si los hay.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="section testi">
+  <div class="section-inner">
+    <div class="tag">Testimonios</div>
+    <h2 class="h2">Lo que dicen<br/>nuestros clientes</h2>
+    <div class="testi-grid">
+      <div class="tcard">
+        <div class="t-stars">★★★★★</div>
+        <blockquote>"Vinieron a podar los pinos de mi jardín en Calella y el resultado fue impecable. Rápidos, limpios y muy buen precio. Sin duda los recomendaría a cualquiera."</blockquote>
+        <div class="t-author">
+          <strong>Marta Rius</strong>
+          <span>Calella de Palafrugell</span>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="t-stars">★★★★★</div>
+        <blockquote>"Urgencia con un árbol caído tras el temporal y respondieron en menos de dos horas. Profesionales de verdad. Ahora les tenemos para el mantenimiento anual."</blockquote>
+        <div class="t-author">
+          <strong>Joan Valls</strong>
+          <span>Palafrugell</span>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="t-stars">★★★★★</div>
+        <blockquote>"Tres años manteniendo el jardín de nuestra comunidad en Begur. Siempre puntuales, siempre perfecto. Total confianza en su trabajo."</blockquote>
+        <div class="t-author">
+          <strong>Anna Puig</strong>
+          <span>Begur</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONA -->
+<section class="section" id="zona">
+  <div class="section-inner">
+    <div class="zona-inner">
+      <div>
+        <div class="tag">Zona de servicio</div>
+        <h2 class="h2">Toda la Costa Brava<br/>y el Baix Empordà</h2>
+        <p class="lead" style="margin-top:20px">Empresa local con base en Palafrugell. Conocemos el terreno, el clima y la vegetación mediterránea de la zona.</p>
+        <div class="zona-list">
+          <div class="z-item"><b>Palafrugell</b></div>
+          <div class="z-item">Calella de Palafrugell</div>
+          <div class="z-item">Llafranc</div>
+          <div class="z-item">Tamariu</div>
+          <div class="z-item"><b>Begur</b></div>
+          <div class="z-item">Palamós</div>
+          <div class="z-item">La Bisbal d'Empordà</div>
+          <div class="z-item">Platja d'Aro</div>
+          <div class="z-item">Sant Feliu de Guíxols</div>
+          <div class="z-item">Torroella de Montgrí</div>
+          <div class="z-item">Girona</div>
+          <div class="z-item">+ tota la comarca</div>
+        </div>
+      </div>
+      <div class="zona-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47745.12!2d3.155!3d41.914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bae0b6e8a7b1d7%3A0x1234!2sPalafrugell%2C+Girona!5e0!3m2!1ses!2ses!4v1700000000"
+          allowfullscreen loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <img class="cta-logo" src="logo_setti_sin_texto.png" alt="Setti" />
+  <h2>Hablemos de tu jardín</h2>
+  <p>Visita gratuita y presupuesto sin compromiso. Respondemos en menos de 24 horas.</p>
+  <a href="tel:+34600000000" class="cta-phone">+34 600 000 000</a>
+  <div class="cta-btns">
+    <a href="https://wa.me/34600000000?text=Hola%2C%20quer%C3%ADa%20pedir%20presupuesto" class="cta-wa" target="_blank">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+    <a href="mailto:info@podasjardines-setti.com" class="cta-mail">Enviar correo</a>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section" id="contacto">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="c-info">
+        <div class="tag">Contacto</div>
+        <h2 class="h2">Pide tu presupuesto<br/>sin compromiso</h2>
+        <br/>
+        <div class="c-block">
+          <div class="c-lbl">Teléfono</div>
+          <div class="c-val"><a href="tel:+34600000000">+34 600 000 000</a></div>
+        </div>
+        <div class="c-block">
+          <div class="c-lbl">WhatsApp</div>
+          <div class="c-val"><a href="https://wa.me/34600000000">Escríbenos ahora</a></div>
+        </div>
+        <div class="c-block">
+          <div class="c-lbl">Correo electrónico</div>
+          <div class="c-val"><a href="mailto:info@podasjardines-setti.com">info@podasjardines-setti.com</a></div>
+        </div>
+        <div class="c-block">
+          <div class="c-lbl">Ubicación</div>
+          <div class="c-val">Palafrugell, Girona<br/>Baix Empordà</div>
+        </div>
+        <div class="c-block">
+          <div class="c-lbl">Horario</div>
+          <div class="c-val">Lunes a viernes, 8:00 – 19:00<br/>Sábados, 9:00 – 14:00</div>
+        </div>
+      </div>
+      <div class="form-wrap">
+        <h3>Formulario de contacto</h3>
+        <div class="fr2">
+          <div class="fg">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre" />
+          </div>
+          <div class="fg">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="+34 600 000 000" />
+          </div>
+        </div>
+        <div class="fg">
+          <label>Correo electrónico</label>
+          <input type="email" placeholder="tu@email.com" />
+        </div>
+        <div class="fg">
+          <label>Servicio</label>
+          <select>
+            <option value="">Selecciona un servicio</option>
+            <option>Poda de árboles</option>
+            <option>Tala de árboles</option>
+            <option>Mantenimiento de jardín</option>
+            <option>Desbrozado y limpieza</option>
+            <option>Diseño de jardín</option>
+            <option>Urgencia</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Descripción del trabajo</label>
+          <textarea placeholder="Cuéntanos brevemente qué necesitas..."></textarea>
+        </div>
+        <button class="form-submit">Enviar solicitud</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-inner">
+    <div class="f-brand">
+      <img src="logo_setti.png" alt="Podas y Jardines Setti" />
+      <p>Empresa local especializada en poda y jardinería profesional en la Costa Brava. Más de diez años cuidando jardines en el Baix Empordà.</p>
+    </div>
+    <div class="f-col">
+      <h5>Servicios</h5>
+      <ul>
+        <li><a href="#servicios">Poda de árboles</a></li>
+        <li><a href="#servicios">Tala profesional</a></li>
+        <li><a href="#servicios">Mantenimiento jardines</a></li>
+        <li><a href="#servicios">Desbrozado</a></li>
+        <li><a href="#servicios">Diseño de jardines</a></li>
+        <li><a href="#servicios">Urgencias</a></li>
+      </ul>
+    </div>
+    <div class="f-col">
+      <h5>Empresa</h5>
+      <ul>
+        <li><a href="#trabajos">Trabajos realizados</a></li>
+        <li><a href="#zona">Zona de servicio</a></li>
+        <li><a href="#contacto">Presupuesto gratuito</a></li>
+        <li><a href="tel:+34600000000">+34 600 000 000</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <span>© 2025 Podas y Jardines Setti · Palafrugell, Girona</span>
+    <span>Diseño — Claude Code</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
